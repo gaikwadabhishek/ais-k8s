@@ -34,8 +34,6 @@ The `ais_deploy_cluster.yml` playbooks takes care of:
 * Creating a K8s namespace (in which AIStore cluster will be deployed), and finally
 * Deploying AIS Custom Resource
 
-> **NOTE:** The playbook assumes the hostnames provided in `host.ini` to match the K8s node names.
-
 #### Args
 
 `ais_mpaths` - list of mountpaths on each node in cluster. Provide this variable by editing the `vars/ais_mpaths.yml` (refer to the example below) or using the CLI argument, e.g. `-e ais_mpaths=["/ais/sda", "/ais/sdb",...,"/ais/sdj"]`
@@ -61,7 +59,7 @@ ais_mpath_size: 9Ti
 
 ```
 
-`node_image` (e.g., `aistorage/aisnode:v3.21`) - docker image used by AIS target/proxy containers
+`node_image` (optional, e.g., `aistorage/aisnode:v3.21`) - docker image used by AIS target/proxy containers
 
 `cluster` - specifies the ansible group to be used for deploying AIS cluster, eg.
 ```ini
@@ -73,6 +71,8 @@ node-09
 node-10
 node-11
 ```
+
+`node_name` (optional) - By default, the node labels and persistent volumes will be created assuming the hostnames provided in your ansible inventory match the node names in your K8s cluster. If this is not the case, you can specify the variable to use here. For example, to use the `ansible_host` variable containing the IP address of the node, set `-e node_name=ansible_host`.
 
 #### Example
 

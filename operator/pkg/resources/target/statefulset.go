@@ -42,13 +42,7 @@ func NewTargetSS(ais *aisv1.AIStore) *apiv1.StatefulSet {
 	ls := PodLabels(ais)
 	var optionals []corev1.EnvVar
 	if ais.Spec.TargetSpec.HostPort != nil {
-		// TODO Pull automatically from hosts
-		hostnameList := ais.Spec.HostnameList
-		if hostnameList != "" {
-			optionals = append(optionals, cmn.EnvFromFieldPath(cmn.EnvPublicHostname, "status.HostIP"))
-		} else {
-			optionals = append(optionals, cmn.EnvFromValue(cmn.EnvPublicHostname, hostnameList))
-		}
+		optionals = append(optionals, cmn.EnvFromFieldPath(cmn.EnvPublicHostname, "status.HostIP"))
 	}
 	if ais.Spec.TLSSecretName != nil {
 		optionals = append(optionals, cmn.EnvFromValue(cmn.EnvUseHTTPS, "true"))

@@ -35,6 +35,16 @@ cluster_domain=${AIS_K8S_CLUSTER_DOMAIN:-"cluster.local"}
 pod_dns="${MY_POD}.${MY_SERVICE}.${K8S_NS}.svc.${cluster_domain}"
 export AIS_INTRA_HOSTNAME=${pod_dns}
 export AIS_DATA_HOSTNAME=${pod_dns}
+
+# Lookup the hostnames in the hostname config map 
+while IFS='=' read -r key value; do
+    # Get the matching hostname list for the primary host IP
+    if [[ "$key" == "$AIS_PUBLIC_HOSTNAME" ]]; then
+        export AIS_PUBLIC_HOSTNAME="$value"
+        break
+    fi
+done < /var/hostname_map
+
 local_conf_template="/var/ais_config_template/ais_local.json"
 local_conf_file="/var/ais_config/ais_local.json"
 envsubst < ${local_conf_template} > ${local_conf_file}

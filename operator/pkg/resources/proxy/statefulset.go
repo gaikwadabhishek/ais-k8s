@@ -77,13 +77,7 @@ func NewProxyStatefulSet(ais *aisv1.AIStore, size int32) *apiv1.StatefulSet {
 func proxyPodSpec(ais *aisv1.AIStore) corev1.PodSpec {
 	var optionals []corev1.EnvVar
 	if ais.Spec.ProxySpec.HostPort != nil {
-		// TODO Pull automatically from hosts
-		hostnameList := ais.Spec.HostnameList
-		if hostnameList == "" {
-			optionals = append(optionals, cmn.EnvFromFieldPath(cmn.EnvPublicHostname, "status.HostIP"))
-		} else {
-			optionals = append(optionals, cmn.EnvFromValue(cmn.EnvPublicHostname, hostnameList))
-		}
+		optionals = append(optionals, cmn.EnvFromFieldPath(cmn.EnvPublicHostname, "status.HostIP"))
 	}
 	if ais.Spec.GCPSecretName != nil {
 		// TODO -- FIXME: Remove hardcoding for path

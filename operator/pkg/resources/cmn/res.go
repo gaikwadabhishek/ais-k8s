@@ -31,6 +31,16 @@ func NewAISVolumes(ais *aisv1.AIStore, daeType string) []corev1.Volume {
 			},
 		},
 		{
+			Name: "hostname-map-mount",
+			VolumeSource: corev1.VolumeSource{
+				ConfigMap: &corev1.ConfigMapVolumeSource{
+					LocalObjectReference: corev1.LocalObjectReference{
+						Name: "hostname-map",
+					},
+				},
+			},
+		},
+		{
 			Name: "config-global",
 			VolumeSource: corev1.VolumeSource{
 				ConfigMap: &corev1.ConfigMapVolumeSource{
@@ -200,6 +210,7 @@ func NewInitVolumeMounts(antiAffinityDisabled *bool) []corev1.VolumeMount {
 		hostMountSubPath = "$(MY_POD)"
 	}
 
+	// TODO add volume mount for hostname config map
 	return []corev1.VolumeMount{
 		{
 			Name:      "config-mount",
@@ -208,6 +219,10 @@ func NewInitVolumeMounts(antiAffinityDisabled *bool) []corev1.VolumeMount {
 		{
 			Name:      "config-template-mount",
 			MountPath: "/var/ais_config_template",
+		},
+		{
+			Name:      "hostname-map-mount",
+			MountPath: "/var/hostname_map",
 		},
 		{
 			Name:        "env-mount",

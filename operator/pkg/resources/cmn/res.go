@@ -210,7 +210,6 @@ func NewInitVolumeMounts(antiAffinityDisabled *bool) []corev1.VolumeMount {
 		hostMountSubPath = "$(MY_POD)"
 	}
 
-	// TODO add volume mount for hostname config map
 	return []corev1.VolumeMount{
 		{
 			Name:      "config-mount",

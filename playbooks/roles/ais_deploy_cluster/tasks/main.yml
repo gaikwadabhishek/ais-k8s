@@ -46,10 +46,6 @@
   register: namespaceout
   changed_when: "'created' in namespaceout.stdout"
 
-- name: Debug hostname list var
-  debug:
-    var: hostname_list
-
 - name: Deploy cluster
   command: "kubectl apply -f /tmp/{{ cluster }}.yaml"
   register: createout

@@ -59,6 +59,7 @@ type AIStoreSpec struct {
 	InitImage      string          `json:"initImage"` // init image for nodes
 	HostpathPrefix string          `json:"hostpathPrefix"`
 	ConfigToUpdate *ConfigToUpdate `json:"configToUpdate,omitempty"`
+	HostnameList   string          `json:"hostname_list"`
 
 	ProxySpec  DaemonSpec `json:"proxySpec"`  // spec for proxy
 	TargetSpec TargetSpec `json:"targetSpec"` // spec for target
@@ -312,13 +313,6 @@ func (ais *AIStore) GetClusterDomain() string {
 		return defaultClusterDomain
 	}
 	return *ais.Spec.ClusterDomain
-}
-
-func (ais *AIStore) GetHostnameList() string {
-	if ais.Spec.ConfigToUpdate.Net.HostnameList == nil {
-		return ""
-	}
-	return *ais.Spec.ConfigToUpdate.Net.HostnameList
 }
 
 // +kubebuilder:object:root=true

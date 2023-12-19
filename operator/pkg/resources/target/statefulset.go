@@ -43,7 +43,7 @@ func NewTargetSS(ais *aisv1.AIStore) *apiv1.StatefulSet {
 	var optionals []corev1.EnvVar
 	if ais.Spec.TargetSpec.HostPort != nil {
 		// TODO Pull automatically from hosts
-		hostnameList := ais.GetHostnameList()
+		hostnameList := ais.Spec.HostnameList
 		if hostnameList != "" {
 			optionals = append(optionals, cmn.EnvFromFieldPath(cmn.EnvPublicHostname, "status.HostIP"))
 		} else {

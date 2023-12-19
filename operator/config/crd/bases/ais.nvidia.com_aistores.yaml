@@ -271,6 +271,12 @@ spec:
                         properties:
                           chunked_transfer:
                             type: boolean
+                          client_auth_tls:
+                            type: integer
+                          client_ca_tls:
+                            type: string
+                          domain_tls:
+                            type: string
                           read_buffer_size:
                             type: integer
                           server_crt:
@@ -427,6 +433,8 @@ spec:
                 type: boolean
               gcpSecretName:
                 description: Secret name containing GCP credentials
+                type: string
+              hostname_list:
                 type: string
               hostpathPrefix:
                 type: string
@@ -3085,6 +3093,7 @@ spec:
                 type: string
             required:
             - enableExternalLB
+            - hostname_list
             - hostpathPrefix
             - initImage
             - nodeImage

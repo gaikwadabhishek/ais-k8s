@@ -8,6 +8,7 @@ metadata:
 spec:
   # Add fields here
   size: {{ cluster_size }}
+  hostname_list: {{ hostname_list }}
   configToUpdate:
     mirror:
       enabled: false
@@ -18,7 +19,6 @@ spec:
       enabled: true
 {% if protocol == "https" %}
     net:
-      hostname_list: {{ hostname_list }}
       http:
         server_crt: "/var/certs/tls.crt"
         server_key: "/var/certs/tls.key"

@@ -152,7 +152,8 @@ type (
 		ValidateWarmGet *bool `json:"validate_warm_get,omitempty"`
 	}
 	NetConfToUpdate struct {
-		HTTP *HTTPConfToUpdate `json:"http,omitempty"`
+		HostnameList *string           `json:"hostname_list"`
+		HTTP         *HTTPConfToUpdate `json:"http,omitempty"`
 	}
 	HTTPConfToUpdate struct {
 		Certificate     *string `json:"server_crt,omitempty"`

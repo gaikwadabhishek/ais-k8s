@@ -314,6 +314,13 @@ func (ais *AIStore) GetClusterDomain() string {
 	return *ais.Spec.ClusterDomain
 }
 
+func (ais *AIStore) GetHostnameList() string {
+	if ais.Spec.ConfigToUpdate.Net.HostnameList == nil {
+		return ""
+	}
+	return *ais.Spec.ConfigToUpdate.Net.HostnameList
+}
+
 // +kubebuilder:object:root=true
 
 // AIStoreList contains a list of AIStore

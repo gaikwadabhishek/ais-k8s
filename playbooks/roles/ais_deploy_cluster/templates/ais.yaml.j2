@@ -18,6 +18,7 @@ spec:
       enabled: true
 {% if protocol == "https" %}
     net:
+      hostname_list: {{ hostname_list }}
       http:
         server_crt: "/var/certs/tls.crt"
         server_key: "/var/certs/tls.key"

@@ -9,7 +9,7 @@ on:
 
 env:
   AISOPERATOR_IMAGE: 'gaikwadabhishek/ais-operator'
-  VERSION: ${{ ${{ github.ref_name }} }}
+  VERSION: ${{ github.ref_name }}
 
 jobs:
   release:

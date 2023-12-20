@@ -2,8 +2,10 @@ name: Publish ais-k8s release
 
 on:
   push:
+    branches:
+      - '**'
     tags:
-      - '*'
+      - 'v*'
 
 env:
   AISOPERATOR_IMAGE: 'gaikwadabhishek/ais-operator'

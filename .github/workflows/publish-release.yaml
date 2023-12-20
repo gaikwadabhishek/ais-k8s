@@ -1,13 +1,16 @@
 name: Publish ais-k8s release 
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The version to release. Must be a tag already available in github. eg. v0.95"
+        required: true
+
 
 env:
   AISOPERATOR_IMAGE: 'gaikwadabhishek/ais-operator'
-  VERSION: ${{ github.event.release.tag_name }}
+  VERSION: ${{ input.version }}
 
 jobs:
   release:

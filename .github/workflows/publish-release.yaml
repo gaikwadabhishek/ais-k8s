@@ -10,14 +10,17 @@ on:
 
 env:
   AISOPERATOR_IMAGE: 'gaikwadabhishek/ais-operator'
-  VERSION: ${{ input.version }}
+  VERSION: ${{ github.event.inputs.version }}
 
 jobs:
   release:
     runs-on: ubuntu-22.04
     steps:
-
-    - uses: actions/checkout@v3
+    
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        ref: ref/tags/${{ env.VERSION }}
     - uses: actions/setup-go@v4
       with:
         go-version: '>=1.21.0'

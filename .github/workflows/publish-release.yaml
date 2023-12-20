@@ -37,6 +37,7 @@ jobs:
     - name: make operator yaml file
       run: |
         pushd $GITHUB_WORKSPACE/operator
+        make kustomize
         VERSION="${{ env.VERSION }}" IMG="${{ env.AISOPERATOR_IMAGE }}:${{ env.VERSION }}" make bundle-manifests
         popd
 

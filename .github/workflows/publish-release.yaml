@@ -1,11 +1,10 @@
 name: Publish ais-k8s release 
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release Version'
-        required: true
+  push:
+    tags:
+      - "v*.*"
+      - "v*.*.*"
 env:
   AISOPERATOR_IMAGE: 'aistorage/ais-operator'
 

@@ -28,7 +28,9 @@ jobs:
           addons: registry,default-storageclass,storage-provisioner,ingress,ingress-dns
       
       - name: Run minikube tunnel (required for LoadBalancer tests)
-        run: nohup minikube tunnel &
+        run: |
+          nohup minikube tunnel &
+          nohup kubectl port-forward svc/kube-dns -n kube-system 5353:53 &
 
       - name: Install Go
         uses: actions/setup-go@v4

@@ -1,0 +1,43 @@
+
+name: AIS Operator Test
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+env:
+  TEST_ALLOW_SHARED_NO_DISKS: "true"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup-minikube
+        uses: medyagh/setup-minikube@latest
+        with:
+          driver: docker
+          container-runtime: docker
+          cpus: max
+          memory: max
+      
+      - name: Run minikube tunnel (required for LoadBalancer tests)
+        run: nohup minikube tunnel &
+
+      - name: Install Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22.x'
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run short tests on minikube
+        run: |
+          export GOPATH="$(go env GOPATH)"
+          make -C operator test-short

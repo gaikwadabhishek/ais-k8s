@@ -25,6 +25,7 @@ jobs:
           container-runtime: docker
           cpus: max
           memory: max
+          addons: registry,default-storageclass,storage-provisioner,ingress,ingress-dns
       
       - name: Run minikube tunnel (required for LoadBalancer tests)
         run: nohup minikube tunnel &
